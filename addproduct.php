@@ -2,12 +2,13 @@
 include_once 'controller/ProductController.php';
 $productController = new ProductController();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $productAdded = $productController->addProduct($_POST);
+    $productController->addProduct($_POST);
 }
 ?>
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product Add</title>
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <body onload="onPageLoad()">
     <div class="container">
         <div class="row">
-        <form id="product_form" method="POST">
+        <form id="#product_form" method="POST">
             <div class="col-md-12 pt-4">
                 <div class="row mt-4">
                     <div class="col-md-8">
@@ -31,34 +32,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <hr class="border border-2 border-dark">
                 <div class="row">
-                    <?php
-                        if (isset($productAdded)) {
-                            ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong><?=$productAdded?></strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <?php
-                        }
-                    ?>
-                    <!-- <form id="product_form" method="POST"> -->
                         <div class="row mb-4">
                             <label for="" class="col-md-1">SKU</label>
-                            <input type="text" name="sku" class="col-md-4" placeholder="Please type product's SKU"/>
+                            <input id="#sku" type="text" name="sku" class="col-md-4" placeholder="Please type product's SKU"/>
                         </div>
                         <div class="row mb-4">
                             <label for="" class="col-md-1">Name</label>
-                            <input type="text" name="name" class="col-md-4" placeholder="Please type product's name"/>
+                            <input id="#name" type="text" name="name" class="col-md-4" placeholder="Please type product's name"/>
                         </div>
                         <div class="row mb-4">
                             <label for="" class="col-md-1">Price ($)</label>
-                            <input type="text" name="price" class="col-md-4" placeholder="Please type product's price"/>
+                            <input id="#price" type="text" name="price" class="col-md-4" placeholder="Please type product's price"/>
                         </div>
                         <div class="row mb-4">
                             <label for="" class="col-md-2">Type Switcher</label>
-                            <select onchange="onSelectedElementChange()" id="selectedOptions" name="type" class="col-md-3">
+                            <select onchange="onSelectedElementChange()" id="#productType" name="type" class="col-md-3">
                                 <option value="book">Book</option>
-                                <option value="disk">Disk</option>
+                                <option value="disk">DVD</option>
                                 <option value="furniture">Furniture</option>
                             </select>
                         </div>
@@ -66,30 +56,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div id="disk">
                                 <p>Please provide DVD's size in MB</p>
                                 <label for="" class="col-md-1">Size (MB)</label>
-                                <input type="text" name="size" class="col-md-4" placeholder="DVD's size"/>
+                                <input id="#size" type="text" name="size" class="col-md-4" placeholder="DVD's size"/>
                             </div>
                             <div id="furniture">
                                 <p>Please provide furniture's dimensions in HxWxL format</p>
                                 <div class="row mb-4">
                                     <label for="" class="col-md-2">Height (CM)</label>
-                                    <input type="text" name="height" class="col-md-3" placeholder="Furniture's height"/>
+                                    <input id="#height" type="text" name="height" class="col-md-3" placeholder="Furniture's height"/>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="" class="col-md-2">Width (CM)</label>
-                                    <input type="text" name="width" class="col-md-3" placeholder="Furniture's width"/>
+                                    <input id="#width" type="text" name="width" class="col-md-3" placeholder="Furniture's width"/>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="" class="col-md-2">Length (CM)</label>
-                                    <input type="text" name="length" class="col-md-3" placeholder="Furniture's length"/>
+                                    <input id="#lenght" type="text" name="length" class="col-md-3" placeholder="Furniture's length"/>
                                 </div>
                             </div>
                             <div id="book">
                                 <p>Please provide book's weight in KG</p>
                                 <label for="" class="col-md-1">Weight (KG)</label>
-                                <input type="text" name="weight" class="col-md-4" placeholder="Book's weight"/>
+                                <input id="#weight" type="text" name="weight" class="col-md-4" placeholder="Book's weight"/>
                             </div>
                         </div>
-                    <!-- </form> -->
                 </div>
             </div>
             <div class="col-md-12 fixed-bottom pb-4">
@@ -107,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             document.getElementById("furniture").style.display = 'none';
         }
         function onSelectedElementChange() {
-            let value = document.getElementById("selectedOptions").value;
+            let value = document.getElementById("#productType").value;
             let bookField = document.getElementById("book");
             let diskField = document.getElementById("disk");
             let furnitureField = document.getElementById("furniture");

@@ -3,37 +3,19 @@
 include_once 'controller/ProductController.php';
 $productController = new ProductController();
 if(isset($_POST['delete']))
-      {
-        $idArray = [];
-        $checkbox = $_POST['checkboxDelete'];
-        // $delProducts = sizeof($checkbox);
-        foreach ($checkbox as $box) {
-          array_push($idArray, $box);
-        // //   $sql = "DELETE FROM links WHERE link_id='$del_id'";
-        // //   $result = mysqli_query($sql);
-        }
-        $delProducts = $productController->deleteProducts($idArray);
-        // // if successful redirect to delete_multiple.php 
-        // if($result){
-        //   echo '<meta http-equiv="refresh" content="0;URL=view_links.php">';
-        // }
-      }
-// $productArray = new ProductArray();
-// if (isset($_GET['deleteProducts'])) {
-//     // $delProducts = $productController->deleteProducts();
-//     $delProducts = sizeof($productArray->getProducts());
-// }
-
-// if (isset($_GET['toDelete'])) {
-//     $id = base64_decode($_GET['toDelete']);
-//     // $delProduct = $productController->changeDelete($id);
-//     $productArray->addProduct($id);
-//     $delProduct = sizeof($productArray->getProducts());
-// }
+{
+    $idArray = [];
+    $checkbox = $_POST['checkboxDelete'];
+    foreach ($checkbox as $box) {
+        array_push($idArray, $box);
+    }
+    $productController->deleteProducts($idArray);
+}
 ?>
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product List</title>
@@ -41,16 +23,6 @@ if(isset($_POST['delete']))
   </head>
   <body>
     <div class="container">
-    <?php
-                    if (isset($delProducts)) {
-                        ?>
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong><?=$delProducts?></strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php
-                    }
-                ?>
         <div class="row">
             <div class="col-md-12 pt-4">
                 <form method="POST">
@@ -60,8 +32,8 @@ if(isset($_POST['delete']))
                     </div>
                     <div class="col-md-4 float-end">
                         <div class="float-end">
-                            <a href="addproduct.php" class="btn btn-primary me-4">ADD</a>
-                            <input type="submit" name="delete" value="MASS DELETE" class="btn btn-danger" />
+                            <a href="addproduct.php" class="btn btn-primary me-4" id="add_btn">ADD</a>
+                            <input type="submit" class="btn btn-danger" name="delete" value="MASS DELETE" id="delete_btn"/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +52,7 @@ if(isset($_POST['delete']))
                                 <div class="col-md-3">
                                     <div class="card">
                                         <div class="card-body">
-                                           <input name="checkboxDelete[]" type="checkbox" value="<?php echo $product->getId();?>"/>
+                                            <input class="delete-checkbox" name="checkboxDelete[]" type="checkbox" value="<?php echo $product->getId();?>"/>
                                             <h6 class="text-center"><?=$product->getSKU()?></h6>
                                             <h6 class="text-center"><?=$product->getName()?></h6>
                                             <h6 class="text-center"><?=$product->getPrice()?>$</h6>
