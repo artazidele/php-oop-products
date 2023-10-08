@@ -1,21 +1,26 @@
 <?php
 include_once 'Product.php';
-class Disk extends Product {
+class Disk extends Product 
+{
     private $size;
 
-    public function setSpecial($weight, $width, $height, $length, $size) {
+    public function setSpecial($weight, $width, $height, $length, $size) 
+    {
         $this->size = $size;
     }
 
-    public function getSpecial() {
+    public function getSpecial() 
+    {
         return "Size: {$this->size}MB";
     }
 
-    public function setSpecialForDB($special) {
+    public function setSpecialForDB($special) 
+    {
         $this->size = $special;
     }
 
-    public function getSpecialForDB() {
+    public function getSpecialForDB() 
+    {
         return $this->size;
     }
 }

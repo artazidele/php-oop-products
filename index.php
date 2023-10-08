@@ -26,20 +26,20 @@ if(isset($_POST['delete']))
         <div class="row">
             <div class="col-md-12 pt-4">
                 <form method="POST">
-                <div class="row mt-4">
-                    <div class="col-md-8">
-                        <h2>Product List</h2>
-                    </div>
-                    <div class="col-md-4 float-end">
-                        <div class="float-end">
-                            <a href="addproduct.php" class="btn btn-primary me-4" id="add_btn">ADD</a>
-                            <input type="submit" class="btn btn-danger" name="delete" value="MASS DELETE" id="delete_btn"/>
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <h2>Product List</h2>
+                        </div>
+                        <div class="col-md-4 float-end">
+                            <div class="float-end">
+                                <a href="addproduct.php" class="btn btn-primary me-4" id="add_btn">ADD</a>
+                                <input type="submit" class="btn btn-danger" name="delete" value="MASS DELETE" id="delete_btn"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr class="border border-2 border-dark">
-                <div class="">
-                    <?php 
+                    <hr class="border border-2 border-dark">
+                    <div>
+                        <?php 
                         $products = $productController->getAllProducts();
                         if ($products) {
                             ?>
@@ -52,7 +52,7 @@ if(isset($_POST['delete']))
                                 <div class="col-md-3">
                                     <div class="card">
                                         <div class="card-body">
-                                            <input class="delete-checkbox" name="checkboxDelete[]" type="checkbox" value="<?php echo $product->getId();?>"/>
+                                            <input class="delete-checkbox form-check-input" name="checkboxDelete[]" type="checkbox" value="<?php echo $product->getId();?>"/>
                                             <h6 class="text-center"><?=$product->getSKU()?></h6>
                                             <h6 class="text-center"><?=$product->getName()?></h6>
                                             <h6 class="text-center"><?=$product->getPrice()?>$</h6>
@@ -72,8 +72,8 @@ if(isset($_POST['delete']))
                             </div>
                             <?php
                         }
-                    ?>
-                </div>
+                        ?>
+                    </div>
                 </form>
             </div>
             <div class="col-md-12 fixed-bottom pb-4">
@@ -85,9 +85,6 @@ if(isset($_POST['delete']))
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
-        function changeDelete(id) {
-            console.log(id);
-        }
     </script>
    </body>
 </html>

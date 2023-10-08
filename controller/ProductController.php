@@ -1,20 +1,21 @@
 <?php
-
 include_once 'database/Database.php';
 include_once 'model/Book.php';
 include_once 'model/Disk.php';
 include_once 'model/Furniture.php';
 include_once 'model/Product.php';
 
-class ProductController {
-
+class ProductController 
+{
     public $db;
-    public function __construct() {
+
+    public function __construct() 
+    {
         $this->db = new Database();
     }
 
-    public function addProduct($data) {
-        
+    public function addProduct($data) 
+    {
         $sku = $data['sku'];
         $name = $data['name'];
         $price = $data['price'];
@@ -27,21 +28,21 @@ class ProductController {
 
         if ($type == "book") {
             if (empty($sku) || empty($name) || empty($price) || empty($weight)) {
-                $msg = "Please fill all fields.";
+                $msg = "Please, submit required data";
                 return $msg;
             } else {
                 $newProduct = new Book();
             }
         } elseif ($type == "disk") {
             if (empty($sku) || empty($name) || empty($price) || empty($size)) {
-                $msg = "Please fill all fields.";
+                $msg = "Please, submit required data";
                 return $msg;
             } else {
                 $newProduct = new Disk();
             }
         } else {
             if (empty($sku) || empty($name) || empty($price) || empty($width) || empty($height) || empty($length)) {
-                $msg = "Please fill all fields.";
+                $msg = "Please, submit required data";
                 return $msg;
             } else {
                 $newProduct = new Furniture();
@@ -54,22 +55,76 @@ class ProductController {
         $newProduct->setType($type);
         $newProduct->setSpecial($weight, $width, $height, $length, $size);
 
-        $specialDB = $newProduct->getSpecialForDB();
-
-        $query = "INSERT INTO `products`(`sku`, `name`, `price`, `type`, `special`) 
-        VALUES ('$sku', '$name', '$price', '$type', '$specialDB')";
-        $result = $this->db->addProduct($query);
-        if ($result) {
-            $msg = "Product added successfully.";
-            return $msg;
+        if ($this->validateData($newProduct) == true) {
+            if ($this->uniqueSKU($newProduct) == true) {
+                $specialDB = $newProduct->getSpecialForDB();
+                $query = "INSERT INTO `products`(`sku`, `name`, `price`, `type`, `special`) 
+                VALUES ('$sku', '$name', '$price', '$type', '$specialDB')";
+                $result = $this->db->addProduct($query);
+                if ($result) {
+                    return true;
+                } else {
+                    $msg = "Product is not added successfully";
+                    return $msg;
+                }
+            } else {
+                $msg = "Please, provide unique SKU";
+                return $msg;
+            }
         } else {
-            $msg = "Product is not added successfully.";
+            $msg = "Please, provide the data of indicated type";
             return $msg;
         }
     }
 
+    private function validateData($product) 
+    {
+        if (strlen($product->getSKU()) > 10 || preg_match("/[A-Z0-9]+/", $product->getSKU()) == false) {
+            return false;
+        } elseif (strlen($product->getName()) > 255) {
+            return false;
+        } elseif (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,2}]?/", $product->getPrice()) == false){
+            return false;
+            // https://www.tutorialrepublic.com/php-tutorial/php-regular-expressions.php
+            // if (substr_count($product->getPrice(), "." == 0)) {
 
-    public function getAllProducts() {
+            // } elseif (substr_count($product->getPrice(), "." == 1)) {
+
+            // } else {
+            //     return false;
+            // }
+        } else {
+            if ($product->getType() == "book") {
+                if (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,3}]?/", $product->getSpecialForDB()) == false) {
+                    return false;
+                }
+            } elseif ($product->getType() == "disk") {
+                if (preg_match("/[1-9][0-9]*/", $product->getSpecialForDB()) == false) {
+                    return false;
+                }
+            } else {
+                if (preg_match("/[1-9][0-9]*[x][1-9][0-9]*[x][1-9][0-9]*/", $product->getSpecialForDB()) == false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private function uniqueSKU($product) 
+    {
+        $allProducts = $this->getAllProducts();
+        foreach ($allProducts as $oneProduct) {
+            if ($oneProduct->getSKU() == $product->getSKU()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public function getAllProducts() 
+    {
         $query = "SELECT * FROM products ORDER BY id ASC";
         $result = $this->db->getProducts($query);
         if ($result) {
@@ -96,19 +151,8 @@ class ProductController {
         }
     }
 
-
-    // public $productArray = [];
-    // public function changeDelete($product) {
-    //     if (in_array($product, $this->productArray)) {
-    //         $key = array_search($product, $this->productArray);
-    //         unset($this->productArray[$key]);
-    //     } else {
-    //         array_push($this->productArray, $product);
-    //     }
-    //     return sizeof($this->productArray);
-    // }
-
-    public function deleteProduct($id) {
+    public function deleteProduct($id) 
+    {
         $query = "DELETE FROM products WHERE id = '$id'";
         $result = $this->db->delete($query);
         if ($result) {
@@ -118,16 +162,14 @@ class ProductController {
         }
     }
 
-    public function deleteProducts($idArray) {
-        // return sizeof($idArray);
+    public function deleteProducts($idArray) 
+    {
         foreach ($idArray as $id) {
             $result = $this->deleteProduct($id);
             if ($result == false) {
-                return "Sorry, we could not delete all products";
+                return false;
             }
         }
     }
-
-    
 }
 ?>
