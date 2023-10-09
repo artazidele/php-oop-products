@@ -85,14 +85,6 @@ class ProductController
             return false;
         } elseif (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,2}]?/", $product->getPrice()) == false){
             return false;
-            // https://www.tutorialrepublic.com/php-tutorial/php-regular-expressions.php
-            // if (substr_count($product->getPrice(), "." == 0)) {
-
-            // } elseif (substr_count($product->getPrice(), "." == 1)) {
-
-            // } else {
-            //     return false;
-            // }
         } else {
             if ($product->getType() == "book") {
                 if (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,3}]?/", $product->getSpecialForDB()) == false) {

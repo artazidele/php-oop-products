@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <!doctype html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product Add</title>
@@ -22,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <div class="container">
         <div class="row">
         <form id="#product_form" method="POST">
-            <div class="col-md-12 pt-4">
+            <div class="col-md-12 pt-4 mb-5 pb-5">
                 <div class="row mt-4">
                     <div class="col-md-8">
                         <h2>Product Add</h2>
@@ -95,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 fixed-bottom pb-4">
-                <hr class="border border-2 border-dark">
+            <div class="col-md-12 fixed-bottom pb-4 bg-white">
+                <hr class="mt-0 border border-2 border-dark">
                 <h6 class="text-center">Scandiweb Test assignment</h6>
             </div>
         </form>
