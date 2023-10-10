@@ -1,0 +1,21 @@
+For this web app I used XAMPP server. 
+In folder /XAMPP/htdocs/ I created a folder 07-10-2023
+Before access this app, I started MySQL Database and Apache Web Server
+All product page on my computer was accessible by http://localhost/07-10-2023/
+Add product page on my computer was accessible by http://localhost/07-10-2023/add-product
+For page access in folder 07-10-1023 I created .htaccess file with content
+    RewriteEngine On
+    RewriteBase /07-10-2023/
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /07-10-2023/index.php [L]
+I created MySQL database in http://localhost/phpmyadmin/
+The database name was productlist and table name was products
+Table structure:
+    id(int(11))             Not Null    AUTO_INCREMENT  Primary Key
+    sku(varchar(10))        Not Null
+    name(varchar(255))      Not Null
+    price(double(10,2))     Not Null
+    type(varchar(10))       Not Null
+    special(varchar(255))   Not Null

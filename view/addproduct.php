@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $productAdded = $productController->addProduct($_POST);
     if ($productAdded == true) {
-        header('Location: http://localhost/07-10-2023/index.php');
+        header('Location: http://localhost/07-10-2023/');
     }
 }
 ?>
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     <div class="col-md-4 float-end">
                         <div class="float-end">
                             <input type="submit" class="btn btn-primary me-4" value="Save"/>
-                            <a href="index.php" class="btn btn-danger">Cancel</a>
+                            <a href="http://localhost/07-10-2023/" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </div>

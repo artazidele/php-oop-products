@@ -2,8 +2,6 @@
 
 $request = $_SERVER['REQUEST_URI'];
 
-// echo $request;
-
 switch ($request) {
 
     case '/07-10-2023':
@@ -21,3 +19,5 @@ switch ($request) {
         echo "PAGE NOT FOUND";
         break;
 }
+
+?>

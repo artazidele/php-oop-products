@@ -31,7 +31,7 @@ if(isset($_POST['delete']))
                         </div>
                         <div class="col-md-4 float-end">
                             <div class="float-end">
-                                <a href="addproduct.php" class="btn btn-primary me-4" id="add_btn">ADD</a>
+                                <a href="http://localhost/07-10-2023/add-product" class="btn btn-primary me-4" id="add_btn">ADD</a>
                                 <input type="submit" class="btn btn-danger" name="delete" value="MASS DELETE" id="delete_btn"/>
                             </div>
                         </div>

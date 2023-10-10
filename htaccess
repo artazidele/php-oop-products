@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /07-10-2023/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /07-10-2023/index.php [L]
