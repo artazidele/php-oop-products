@@ -3,6 +3,7 @@ In folder /XAMPP/htdocs/ I created a folder 07-10-2023
 Before access this app, I started MySQL Database and Apache Web Server
 All product page on my computer was accessible by http://localhost/07-10-2023/
 Add product page on my computer was accessible by http://localhost/07-10-2023/add-product
+For web page design I used Bootstrap.
 For page access in folder 07-10-1023 I created .htaccess file with content
     RewriteEngine On
     RewriteBase /07-10-2023/
