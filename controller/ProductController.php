@@ -81,7 +81,7 @@ class ProductController
     {
         $price_pattern = "/^((([1-9][0-9]{0,7})|0)|((([1-9][0-9]{0,7})|0)\.[0-9]{1,2}))$/";
         $weight_pattern = "/^((([1-9][0-9]{0,7})|0)|((([1-9][0-9]{0,7})|0)\.[0-9]{1,3}))$/";
-        if (strlen($product->getSKU()) > 10 || preg_match("/[A-Z0-9]+/", $product->getSKU()) == false) {
+        if (strlen($product->getSKU()) > 10 || preg_match("/^([A-Z0-9]+)$/", $product->getSKU()) == false) {
             return false;
         } elseif (strlen($product->getName()) > 255) {
             return false;
