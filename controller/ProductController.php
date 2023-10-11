@@ -79,23 +79,26 @@ class ProductController
 
     private function validateData($product) 
     {
+        $price_pattern = "/^((([1-9][0-9]{0,7})|0)|((([1-9][0-9]{0,7})|0)\.[0-9]{1,2}))$/";
+        $weight_pattern = "/^((([1-9][0-9]{0,7})|0)|((([1-9][0-9]{0,7})|0)\.[0-9]{1,3}))$/";
         if (strlen($product->getSKU()) > 10 || preg_match("/[A-Z0-9]+/", $product->getSKU()) == false) {
             return false;
         } elseif (strlen($product->getName()) > 255) {
             return false;
-        } elseif (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,2}]?/", $product->getPrice()) == false){
+        } elseif (preg_match($price_pattern, $product->getPrice()) == false){
             return false;
-        } else {
+        } 
+        else {
             if ($product->getType() == "book") {
-                if (preg_match("/[1-9]{1}[0-9]{0,7}[.[0-9]{1,3}]?/", $product->getSpecialForDB()) == false) {
+                if (preg_match($weight_pattern, $product->getSpecialForDB()) == false) {
                     return false;
                 }
             } elseif ($product->getType() == "disk") {
-                if (preg_match("/[1-9][0-9]*/", $product->getSpecialForDB()) == false) {
+                if (preg_match("/^([1-9][0-9]*)$/", $product->getSpecialForDB()) == false) {
                     return false;
                 }
             } else {
-                if (preg_match("/[1-9][0-9]*[x][1-9][0-9]*[x][1-9][0-9]*/", $product->getSpecialForDB()) == false) {
+                if (preg_match("/^([1-9][0-9]*[x][1-9][0-9]*[x][1-9][0-9]*)^/", $product->getSpecialForDB()) == false) {
                     return false;
                 }
             }
