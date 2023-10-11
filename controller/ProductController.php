@@ -87,8 +87,16 @@ class ProductController
             return false;
         } elseif (preg_match($price_pattern, $product->getPrice()) == false){
             return false;
-        } 
-        else {
+        } elseif (preg_match($price_pattern, $product->getPrice()) == true) {
+            $price = $product->getPrice();
+            if (preg_match("/^(([1-9][0-9]{0,7})|0)$/", $price)) {
+                $newPrice = $price . ".00";
+                $product -> setPrice($newPrice);
+            } elseif (preg_match("/^((([1-9][0-9]{0,7})|0)\.[0-9])$/", $price)) {
+                $newPrice = $price . "0";
+                $product -> setPrice($newPrice);
+            }
+        } else {
             if ($product->getType() == "book") {
                 if (preg_match($weight_pattern, $product->getSpecialForDB()) == false) {
                     return false;
